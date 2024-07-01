@@ -7,6 +7,7 @@ import { Vehicle } from '@/api/get-vehicles'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { TableCell, TableRow } from '@/components/ui/table'
+
 import { VehicleDetails } from './vehicle-details'
 
 interface VehicleTableRowProps {
@@ -32,10 +33,8 @@ export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
       <TableCell className="font-mono text-xs font-medium">
         {vehicle.id}
       </TableCell>
-      
-      <TableCell>
-        {vehicle.name}
-      </TableCell>
+
+      <TableCell>{vehicle.name}</TableCell>
       <TableCell className="font-medium">{vehicle.licensePlate}</TableCell>
       <TableCell className="text-muted-foreground">
         {formatDistanceToNow(vehicle.updatedAt, {
@@ -47,11 +46,10 @@ export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
         <Button
           // disabled={}
           // onClick={() => }
-          variant="ghost"
           size="icon"
+          className="size-8 bg-foreground/80"
         >
-          <X className="mr-2 h-3 w-3" />
-          Deletar
+          <X className="size-4" />
         </Button>
       </TableCell>
     </TableRow>

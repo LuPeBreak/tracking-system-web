@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import Cookies from "js-cookie"
+import Cookies from 'js-cookie'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
@@ -19,7 +19,6 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
-  
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -39,13 +38,14 @@ export function SignIn() {
 
   async function handleSignIn(data: SignInForm) {
     try {
-      const response = await authenticate({ email: data.email, password: data.password })
+      const response = await authenticate({
+        email: data.email,
+        password: data.password,
+      })
       toast.success('Login realizado com sucesso.')
-      Cookies.set("track_token",`${response.token}`)
-      await new Promise((resolve) =>
-        setTimeout(resolve, 1000),
-      )
-      navigate(`/`,{replace:true})
+      Cookies.set('track_token', `${response.token}`)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      navigate(`/`, { replace: true })
       location.reload()
     } catch (error) {
       toast.error('Credenciais inválidas.')
