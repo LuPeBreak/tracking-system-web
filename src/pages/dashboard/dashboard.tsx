@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 
+import { getVehicles } from '@/api/get-vehicles'
 import {
   Table,
   TableBody,
@@ -9,18 +10,14 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { getVehicles } from '@/api/get-vehicles'
 import { VehicleTableRow } from './vehicle-table-row'
 import { VehicleTableSkeleton } from './vehicle-table-skeletons'
 
 export function Dashboard() {
-
   const { data: result, isLoading: isLoadingVehicles } = useQuery({
     queryKey: ['vehicles'],
-    queryFn: () =>
-      getVehicles(),
+    queryFn: () => getVehicles(),
   })
-
 
   return (
     <>
@@ -46,7 +43,9 @@ export function Dashboard() {
 
                 {result &&
                   result.vehicles.map((vehicle) => {
-                    return <VehicleTableRow key={vehicle.id} vehicle={vehicle} />
+                    return (
+                      <VehicleTableRow key={vehicle.id} vehicle={vehicle} />
+                    )
                   })}
               </TableBody>
             </Table>

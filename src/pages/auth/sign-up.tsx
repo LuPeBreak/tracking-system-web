@@ -13,7 +13,7 @@ import { Label } from '@/components/ui/label'
 const signUpForm = z.object({
   name: z.string(),
   email: z.string().email(),
-  password:z. string()
+  password: z.string(),
 })
 
 type SignUpForm = z.infer<typeof signUpForm>
@@ -33,9 +33,9 @@ export function SignUp() {
   async function handleSignUp(data: SignUpForm) {
     try {
       await registerRestaurantFn({
-        name:data.name,
+        name: data.name,
         email: data.email,
-        password: data.password
+        password: data.password,
       })
       toast.success('Restaurante cadastrado com sucesso.', {
         action: {
@@ -65,14 +65,9 @@ export function SignUp() {
             </p>
           </div>
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
-
             <div className="space-y-2">
               <Label htmlFor="name">Seu nome</Label>
-              <Input
-                id="name"
-                type="text"
-                {...register('name')}
-              />
+              <Input id="name" type="text" {...register('name')} />
             </div>
 
             <div className="space-y-2">

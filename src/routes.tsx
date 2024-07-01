@@ -17,8 +17,7 @@ export const router: any = createBrowserRouter([
     children: [
       {
         path: '/',
-        element:<Dashboard/>
-        ,
+        element: <Dashboard />,
       },
     ],
   },
@@ -33,7 +32,7 @@ export const router: any = createBrowserRouter([
       },
       {
         path: '/sign-up',
-        element: <SignUp/>,
+        element: <SignUp />,
       },
     ],
   },

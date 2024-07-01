@@ -1,12 +1,15 @@
+import { useMutation } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Search, X } from 'lucide-react'
 import { useState } from 'react'
 
-import { Vehicle } from '@/api/get-vehicles'
+import { deleteVehicle } from '@/api/delete-vehicle'
+import { type GetVehiclesResponse, Vehicle } from '@/api/get-vehicles'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { TableCell, TableRow } from '@/components/ui/table'
+import { queryClient } from '@/lib/react-query'
 
 import { VehicleDetails } from './vehicle-details'
 
@@ -16,6 +19,35 @@ interface VehicleTableRowProps {
 
 export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
+
+  function removeVehicleOnCache(vehicleId: string) {
+    const vehiclesListCache = queryClient.getQueriesData<GetVehiclesResponse>({
+      queryKey: ['vehicles'],
+    })
+
+    vehiclesListCache.forEach(([cacheKey, cacheData]) => {
+      if (!cacheData) {
+        return
+      }
+
+      queryClient.setQueryData<GetVehiclesResponse>(cacheKey, {
+        vehicles: cacheData.vehicles.filter((vehicle) => {
+          if (vehicle.id === vehicleId) {
+            return false
+          }
+          return true
+        }),
+      })
+    })
+  }
+
+  const { mutateAsync: deleteVehicleFn, isPending: isDeletingVehicle } =
+    useMutation({
+      mutationFn: deleteVehicle,
+      async onSuccess(_, { vehicleId }) {
+        removeVehicleOnCache(vehicleId)
+      },
+    })
 
   return (
     <TableRow>
@@ -44,8 +76,8 @@ export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
       </TableCell>
       <TableCell>
         <Button
-          // disabled={}
-          // onClick={() => }
+          disabled={isDeletingVehicle}
+          onClick={() => deleteVehicleFn({ vehicleId: vehicle.id })}
           size="icon"
           className="size-8 bg-foreground/80"
         >
