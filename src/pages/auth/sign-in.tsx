@@ -41,11 +41,12 @@ export function SignIn() {
     try {
       const response = await authenticate({ email: data.email, password: data.password })
       toast.success('Login realizado com sucesso.')
-      Cookies.set("track_token",`${response.data.token}`)
+      Cookies.set("track_token",`${response.token}`)
       await new Promise((resolve) =>
         setTimeout(resolve, 1000),
       )
-      navigate(`/`)
+      navigate(`/`,{replace:true})
+      location.reload()
     } catch (error) {
       toast.error('Credenciais inválidas.')
     }
