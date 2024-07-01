@@ -4,6 +4,7 @@ import { AppLayout } from './_layouts/app'
 import { AuthLayout } from './_layouts/auth'
 import { Button } from './components/ui/button'
 import { NotFound } from './pages/404'
+import { SignIn } from './pages/auth/sign-in'
 import { Error } from './pages/error'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +28,7 @@ export const router: any = createBrowserRouter([
     children: [
       {
         path: '/sign-in',
-        element: <Button>Login</Button>,
+        element: <SignIn />,
       },
       {
         path: '/sign-up',
