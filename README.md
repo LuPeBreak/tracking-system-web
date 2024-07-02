@@ -1,30 +1,24 @@
-# React + TypeScript + Vite
+# Tracking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A vehicle basic tracking system web app! you can find the api of this app on [Link](https://github.com/LuPeBreak/tracking-system-api)
 
-Currently, two official plugins are available:
+## Local Setup
+- On root run `pnpm i`
+- On root change .env.local.example file to .env.local`
+- On root run `pnpm run dev`
+- Open http://localhost:5173/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Authentication
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [x] It should be able to authenticate using e-mail & password;
+- [x] It should be able to create an account (e-mail, name and password);
 
-- Configure the top-level `parserOptions` property like this:
+### Vehicles
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- [x] It should be able to get vehicles within a organization;
+- [x] It should be able to create a new vehicle (name, type, localization, description);
+- [x] It should be able to update a vehicle (name, type, localization, description);
+- [x] It should be able to delete a vehicle;
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
