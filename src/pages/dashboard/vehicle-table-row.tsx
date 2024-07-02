@@ -1,17 +1,25 @@
 import { useMutation } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Search, X } from 'lucide-react'
+import { Pencil, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { deleteVehicle } from '@/api/delete-vehicle'
 import { type GetVehiclesResponse, Vehicle } from '@/api/get-vehicles'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { TableCell, TableRow } from '@/components/ui/table'
 import { queryClient } from '@/lib/react-query'
 
 import { VehicleDetails } from './vehicle-details'
+import { VehicleForm } from './vehicle-form'
 
 interface VehicleTableRowProps {
   vehicle: Vehicle
@@ -62,9 +70,6 @@ export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
           <VehicleDetails vehicle={vehicle} />
         </Dialog>
       </TableCell>
-      <TableCell className="font-mono text-xs font-medium">
-        {vehicle.id}
-      </TableCell>
 
       <TableCell>{vehicle.name}</TableCell>
       <TableCell className="font-medium">{vehicle.licensePlate}</TableCell>
@@ -74,15 +79,33 @@ export function VehicleTableRow({ vehicle }: VehicleTableRowProps) {
           addSuffix: true,
         })}
       </TableCell>
-      <TableCell>
+      <TableCell className="space-x-4">
         <Button
           disabled={isDeletingVehicle}
           onClick={() => deleteVehicleFn({ vehicleId: vehicle.id })}
           size="icon"
-          className="size-8 bg-foreground/80"
+          variant="outline"
         >
           <X className="size-4" />
+          <span className="sr-only">Deletar Veiculo</span>
         </Button>
+        <Sheet>
+          <SheetTrigger>
+            <Button variant="outline" size="icon">
+              <Pencil className="h-3 w-3" />
+              <span className="sr-only">Atualizar Veiculo</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Atualizar Veiculo</SheetTitle>
+            </SheetHeader>
+
+            <div className="py-4">
+              <VehicleForm vehicle={vehicle} />
+            </div>
+          </SheetContent>
+        </Sheet>
       </TableCell>
     </TableRow>
   )

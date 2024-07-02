@@ -15,9 +15,6 @@ export function VehicleTableSkeleton() {
           </Button>
         </TableCell>
         <TableCell>
-          <Skeleton className="h-4 w-[172px]" />
-        </TableCell>
-        <TableCell>
           <Skeleton className="h-4 w-[110px]" />
         </TableCell>
         <TableCell>
