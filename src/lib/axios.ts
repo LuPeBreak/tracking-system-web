@@ -6,7 +6,7 @@ import { env } from '@/env'
 const cookies = Cookies.get()
 export const api = axios.create({
   baseURL: env.VITE_API_URL,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     Authorization: cookies.track_token ? `Bearer ${cookies.track_token}` : '',
   },
